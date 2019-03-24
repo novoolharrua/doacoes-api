@@ -1,0 +1,6 @@
+env
+.idea
+__pycache__/
+config_env.sh
+credentials.*
+token.pickle
