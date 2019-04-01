@@ -7,7 +7,7 @@ from googleapiclient.discovery import build
 import datetime
 import json
 
-api_key = os.environ['API_KEY']
+#api_key = os.environ['API_KEY']
 
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
@@ -37,6 +37,17 @@ def get_service():
     service = build('calendar', 'v3', credentials=creds)
     return service
 
+# def get_service():
+#     from google.oauth2 import service_account
+#
+#     SCOPES = ['https://www.googleapis.com/auth/sqlservice.admin']
+#     SERVICE_ACCOUNT_FILE = '/home/lucas/credentials2.json'
+#
+#     credentials = service_account.Credentials.from_service_account_file(
+#         SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+#     delegated_credentials = credentials.with_subject('pastoralderuadev@gmail.com')
+#     service = build('calendar', 'v3', credentials=delegated_credentials)
+#     return service
 
 #### CALENDAR
 
@@ -60,7 +71,7 @@ def list_calendars():
 
     return result
 
-def new_calendar(summary):              #TODO: fix auth
+def create_calendar():
     calendar = {
         'summary': 'calendarSummary',
         'timeZone': 'America/Los_Angeles'
@@ -68,12 +79,30 @@ def new_calendar(summary):              #TODO: fix auth
     service = get_service()
     created_calendar = service.calendars().insert(body=calendar).execute()
 
-    print (created_calendar['id'])
-
-
+    print(created_calendar['id'])
 
 
 #### EVENTS
+
+def create_event():
+    service = get_service()
+    event = {
+        'summary': 'Google I/O 2015',
+        'location': '800 Howard St., San Francisco, CA 94103',
+        'description': 'A chance to hear more about Google\'s developer products.',
+        'start': {
+            'dateTime': '2019-04-02T09:00:00-07:00',
+            'timeZone': 'America/Sao_Paulo',
+        },
+        'end': {
+            'dateTime': '2019-04-02T17:00:00-07:00',
+            'timeZone': 'America/Sao_Paulo',
+        }
+    }
+
+    event = service.events().insert(calendarId='primary', body=event).execute()
+    print ('Event created: %s' % (event.get('htmlLink')))
+
 
 
 def get_events_by_calendar_id(calendar_id):
@@ -87,3 +116,8 @@ def get_events_by_calendar_id(calendar_id):
         if not page_token:
             break
 
+def main():
+    create_event()
+
+if __name__ == "__main__":
+    main()
