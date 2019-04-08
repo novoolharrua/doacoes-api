@@ -1,53 +1,20 @@
-import requests
-import pickle
-import os
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
-from googleapiclient.discovery import build
-import datetime
-import json
 
-#api_key = os.environ['API_KEY']
+from googleapiclient.discovery import build
 
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
+
 def get_service():
-    """Shows basic usage of the Google Calendar API.
-    Prints the start and name of the next 10 events on the user's calendar.
-    """
-    creds = None
-    # The file token.pickle stores the user's access and refresh tokens, and is
-    # created automatically when the authorization flow completes for the first
-    # time.
-    if os.path.exists('token.pickle'):
-        with open('token.pickle', 'rb') as token:
-            creds = pickle.load(token)
-    # If there are no (valid) credentials available, let the user log in.
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                'credentials.json', SCOPES)
-            creds = flow.run_local_server()
-        # Save the credentials for the next run
-        with open('token.pickle', 'wb') as token:
-            pickle.dump(creds, token)
+    from google.oauth2 import service_account
 
-    service = build('calendar', 'v3', credentials=creds)
+    SCOPES = ['https://www.googleapis.com/auth/calendar']
+    SERVICE_ACCOUNT_FILE = 'credencial_sam.json'
+
+    credentials = service_account.Credentials.from_service_account_file(
+        SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+    delegated_credentials = credentials.with_subject('lucas@necconstrucoes.com')
+    service = build('calendar', 'v3', credentials=delegated_credentials)
     return service
-
-# def get_service():
-#     from google.oauth2 import service_account
-#
-#     SCOPES = ['https://www.googleapis.com/auth/sqlservice.admin']
-#     SERVICE_ACCOUNT_FILE = '/home/lucas/credentials2.json'
-#
-#     credentials = service_account.Credentials.from_service_account_file(
-#         SERVICE_ACCOUNT_FILE, scopes=SCOPES)
-#     delegated_credentials = credentials.with_subject('pastoralderuadev@gmail.com')
-#     service = build('calendar', 'v3', credentials=delegated_credentials)
-#     return service
 
 #### CALENDAR
 
@@ -87,15 +54,15 @@ def create_calendar():
 def create_event():
     service = get_service()
     event = {
-        'summary': 'Google I/O 2015',
-        'location': '800 Howard St., San Francisco, CA 94103',
-        'description': 'A chance to hear more about Google\'s developer products.',
+        'summary': 'EVENTAO DA PORRA',
+        'location': 'Rodoviaria',
+        'description': 'aehooooooooooo',
         'start': {
-            'dateTime': '2019-04-02T09:00:00-07:00',
+            'dateTime': '2019-04-03T06:00:00',
             'timeZone': 'America/Sao_Paulo',
         },
         'end': {
-            'dateTime': '2019-04-02T17:00:00-07:00',
+            'dateTime': '2019-04-03T12:00:00',
             'timeZone': 'America/Sao_Paulo',
         }
     }
@@ -115,9 +82,3 @@ def get_events_by_calendar_id(calendar_id):
         page_token = events.get('nextPageToken')
         if not page_token:
             break
-
-def main():
-    create_event()
-
-if __name__ == "__main__":
-    main()
