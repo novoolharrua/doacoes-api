@@ -28,12 +28,12 @@ def post_region():
     result = {}
     name = body['name']
     address = body['address']
-    region_obj = region.create_region(region_name=name, address=address)
 
-    if region_obj:
-        result['id_region'] = region_obj.id
-        result['name'] = region_obj.name
-        result['address'] = region_obj.address
+    # region_obj = region.create_region(region_name=name, address=address)
+    # if region_obj:
+    #     result['id_region'] = region_obj.id
+    #     result['name'] = region_obj.name
+    #     result['address'] = region_obj.address
 
 
     result['calendars'] = []

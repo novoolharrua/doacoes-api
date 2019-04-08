@@ -2,15 +2,7 @@
 # -*- coding: utf-8 -*
 
 """
-A model for the account entity.
-CREATE TABLE `tb_calendars` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_region` int(11) DEFAULT NULL,
-  `id_calendar` varchar(200) NOT NULL,
-  PRIMARY KEY (`id`),
-  #KEY `fk_tb_calendars_tb_region_idx` (`id_region`),
-  CONSTRAINT `fk_tb_calendars_tb_regions` FOREIGN KEY (`id_region`) REFERENCES `tb_regions` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+A model for the region entity.
 """
 
 from services.database import get_db_instance
