@@ -1,6 +1,6 @@
 
 from googleapiclient.discovery import build
-
+from googleapiclient.errors import HttpError
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 
@@ -24,20 +24,6 @@ def get_calendar_by_id(calendar_id):
 
     return calendar
 
-def list_calendars():
-    service = get_service()
-    result = []
-    page_token = None
-    while True:
-        calendar_list = service.calendarList().list(pageToken=page_token).execute()
-        for calendar_list_entry in calendar_list['items']:
-            result.append(calendar_list_entry)
-        page_token = calendar_list.get('nextPageToken')
-        if not page_token:
-            break
-
-    return result
-
 def create_calendar(region_name, type):
     calendar = {
         'summary': '{} calendar for {} region'.format(type, region_name),
@@ -50,9 +36,11 @@ def create_calendar(region_name, type):
 
 def delete_calendar(gcloud_id):
     service = get_service()
-    service.calendars().delete(calendarId='gcloud_id').execute()
-
-
+    try:
+        service.calendars().delete(calendarId=gcloud_id).execute()
+        return True
+    except HttpError:
+        return False
 
 #### EVENTS
 

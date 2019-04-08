@@ -67,7 +67,6 @@ def list_regions():
     return jsonify(result), 200
 
 
-
 @blueprint.route('/region/<region_id>', methods=['GET', 'OPTIONS'])
 def get_region(region_id):
     result = {}
@@ -77,8 +76,22 @@ def get_region(region_id):
         result['name'] = region_obj.name
         result['address'] = region_obj.address
         result['calendars'] = calendar.get_calendars_by_region(region_obj.id)
-
-
     return jsonify(result), 200
 
+@blueprint.route('/region/<region_id>', methods=['DELETE', 'OPTIONS'])
+def delete_region(region_id):
+    result = {}
+    region_obj = region.get_region(region_id)
+    calendars = calendar.get_calendars_by_region(region_id)
+    if region_obj:
+        for calendar_obj in calendars:
+            calendar_api.delete_calendar(calendar_obj['gcloud_id'])
+        region.delete_region(region_obj.id)
+        result['id_region'] = region_obj.id
+        result['name'] = region_obj.name
+        result['address'] = region_obj.address
+        result['calendars'] = calendars
+        return jsonify(result), 200
+    else:
+        endpoints_exception(404, "REGION_NOT_FOUND")
 

@@ -69,4 +69,16 @@ def get_region(id):
     finally:
         db.close()
 
+def delete_region(id):
+    db = get_db_instance()
+    try:
+        with db.cursor() as cursor:
+            # Remove a single record
+            sql = "delete from {} where ID_REGION = {}"
+            cursor.execute(sql.format(table_name, id))
+            cursor.execute('commit')
+            return True
+    finally:
+        db.close()
+
 

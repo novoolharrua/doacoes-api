@@ -28,6 +28,6 @@ CREATE TABLE IF NOT EXISTS `donations`.`calendar` (
   CONSTRAINT `fk_calendar_region`
     FOREIGN KEY (`ID_REGION`)
     REFERENCES `donations`.`region` (`ID_REGION`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
