@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*
 
 from flask import Blueprint, jsonify, request, abort, make_response
-from models import region
+from models import region, calendar
+from services import calendar_api
 import logging
 
 
@@ -26,17 +27,34 @@ def post_region():
     """
     body = request.json
     result = {}
-    name = body['name']
-    address = body['address']
+    region_name = body['name']
+    region_address = body['address']
 
-    # region_obj = region.create_region(region_name=name, address=address)
-    # if region_obj:
-    #     result['id_region'] = region_obj.id
-    #     result['name'] = region_obj.name
-    #     result['address'] = region_obj.address
+    _logger.info('Creating Region {}'.format(region_name))
+
+    region_obj = region.create_region(region_name=region_name, address=region_address)
+    if region_obj:
+        result['id_region'] = region_obj.id
+        result['name'] = region_obj.name
+        result['address'] = region_obj.address
+
+    _logger.info('Region {} created with id {}.'.format(region_name,region_obj.id))
 
 
     result['calendars'] = []
+
+    for type in ['Clothing', 'Food', 'Others']:
+        _logger.info('Creating {} calendar for region {}'.format(type, region_name))
+        created_calendar_id = calendar_api.create_calendar(region_name, type)
+        calendar_obj = calendar.create_calendar(region_obj.id,created_calendar_id, type.upper())
+        calendar_dto = {
+            'id': calendar_obj.id,
+            'type': calendar_obj.type,
+            'region_id': calendar_obj.region_id,
+            'gcloud_url': calendar_obj.gcloud_id
+        }
+        result['calendars'].append(calendar_dto)
+        _logger.info('{} calendar for region {} created with id {}'.format(type, region_name, calendar_obj.id))
 
     return jsonify(result), 200
 
@@ -58,4 +76,9 @@ def get_region(region_id):
         result['id_region'] = region_obj.id
         result['name'] = region_obj.name
         result['address'] = region_obj.address
+        result['calendars'] = calendar.get_calendars_by_region(region_obj.id)
+
+
     return jsonify(result), 200
+
+

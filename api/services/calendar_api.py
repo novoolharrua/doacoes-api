@@ -38,15 +38,20 @@ def list_calendars():
 
     return result
 
-def create_calendar():
+def create_calendar(region_name, type):
     calendar = {
-        'summary': 'calendarSummary',
-        'timeZone': 'America/Los_Angeles'
+        'summary': '{} calendar for {} region'.format(type, region_name),
+        'timeZone': 'America/Sao_Paulo'
     }
     service = get_service()
     created_calendar = service.calendars().insert(body=calendar).execute()
 
-    print(created_calendar['id'])
+    return created_calendar['id']
+
+def delete_calendar(gcloud_id):
+    service = get_service()
+    service.calendars().delete(calendarId='gcloud_id').execute()
+
 
 
 #### EVENTS

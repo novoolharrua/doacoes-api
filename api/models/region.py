@@ -18,7 +18,7 @@ class Region():
         self.address = address
 
     def __repr__(self):
-        return "<Region(name='%s', adress=%s)>" % (self.name, self.name)
+        return "<Region(name='%s', adress=%s)>" % (self.name, self.address)
 
 
 def create_region(region_name, address):
@@ -28,7 +28,6 @@ def create_region(region_name, address):
         with db.cursor() as cursor:
             # insert record
             sql = "INSERT INTO {} (NAME, ADDRESS) VALUES ('{}', '{}')"
-            print(sql.format(table_name, region_name, address))
             cursor.execute(sql.format(table_name, region_name, address))
             created_id = db.insert_id()
             cursor.execute('commit')
