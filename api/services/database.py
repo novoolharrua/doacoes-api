@@ -12,6 +12,7 @@ def get_db_instance():
     passwd = os.environ['SQL_PASS']
     database = os.environ['SQL_DB']
 
-    db = pymysql.connect(host,user,passwd,database)
+
+    db = pymysql.connect(host, user, passwd, database)
 
     return db

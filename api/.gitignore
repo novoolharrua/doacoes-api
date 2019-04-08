@@ -1,6 +1,6 @@
 env
 .idea
 __pycache__/
-config_env.sh
-credentials.*
+*.json
 token.pickle
+config_*.sh
