@@ -25,8 +25,8 @@ def post_region():
     }
     :return: a region entity
     """
-    body = request.json
     result = {}
+    body = request.json
     region_name = body['name']
     region_address = body['address']
 
@@ -43,7 +43,7 @@ def post_region():
 
     result['calendars'] = []
 
-    for type in ['Clothing', 'Food', 'Others']:
+    for type in ['Clothing', 'Food', 'Religion', 'Others']:
         _logger.info('Creating {} calendar for region {}'.format(type, region_name))
         created_calendar_id = calendar_api.create_calendar(region_name, type)
         calendar_obj = calendar.create_calendar(region_obj.id,created_calendar_id, type.upper())

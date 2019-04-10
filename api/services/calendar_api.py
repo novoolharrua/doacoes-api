@@ -44,25 +44,27 @@ def delete_calendar(gcloud_id):
 
 #### EVENTS
 
-def create_event():
+def post_event(region, calendar,  start, stop):
     service = get_service()
     event = {
-        'summary': 'EVENTAO DA PORRA',
-        'location': 'Rodoviaria',
-        'description': 'aehooooooooooo',
+        'summary': '{}'.format('PASTORAL DE RUA'),
+        'location': region.address,
+        'description': 'Doação de {} para o grupo {}'.format(calendar.type, region.name),
         'start': {
-            'dateTime': '2019-04-03T06:00:00',
+            'dateTime': start,
             'timeZone': 'America/Sao_Paulo',
         },
         'end': {
-            'dateTime': '2019-04-03T12:00:00',
+            'dateTime': stop,
             'timeZone': 'America/Sao_Paulo',
-        }
+        },
+        'transparency': 'opaque',
+        'attendees': []
     }
 
-    event = service.events().insert(calendarId='primary', body=event).execute()
-    print ('Event created: %s' % (event.get('htmlLink')))
-
+    event = service.events().insert(calendarId=calendar.gcloud_id, body=event).execute()
+    print('Event created: %s' % (event.get('htmlLink')))
+    return event
 
 
 def get_events_by_calendar_id(calendar_id):
