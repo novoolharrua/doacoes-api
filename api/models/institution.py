@@ -41,9 +41,25 @@ def create_institution(address, name, email, passwd, types, shelter):
         db.close()
 
 
-def main():
-    result = create_institution('endereco', 'nome', 'email', 'passwd','food,religion,shelter', 0)
-    print(result)
-
-if __name__ == "__main__":
-    main()
+def get_institutions():
+    db = get_db_instance()
+    data = []
+    try:
+        with db.cursor() as cursor:
+            # Read all records
+            sql = "select * from {}"
+            cursor.execute(sql.format(table_name))
+            result = cursor.fetchall()
+            for row in result:
+                data.append({
+                    'id_institution': row[0],
+                    'address': row[1],
+                    'name': row[2],
+                    'email': row[3],
+                    'password': row[4],
+                    'types': row[5].split(','),
+                    'shelter': row[6]
+                })
+            return data
+    finally:
+        db.close()

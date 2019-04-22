@@ -18,7 +18,7 @@ def endpoints_exception(code, msg):
 @blueprint.route('/region', methods=['POST', 'OPTIONS'])
 def post_region():
     """
-    account post must follow:
+    region post must follow:
     {
       "name": "string",
       "address": "string"
