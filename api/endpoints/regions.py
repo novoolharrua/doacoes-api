@@ -18,15 +18,15 @@ def endpoints_exception(code, msg):
 @blueprint.route('/region', methods=['POST', 'OPTIONS'])
 def post_region():
     """
-    account post must follow:
+    region post must follow:
     {
       "name": "string",
       "address": "string"
     }
     :return: a region entity
     """
-    body = request.json
     result = {}
+    body = request.json
     region_name = body['name']
     region_address = body['address']
 
@@ -43,7 +43,7 @@ def post_region():
 
     result['calendars'] = []
 
-    for type in ['Clothing', 'Food', 'Others']:
+    for type in ['Clothing', 'Food', 'Religion', 'Others']:
         _logger.info('Creating {} calendar for region {}'.format(type, region_name))
         created_calendar_id = calendar_api.create_calendar(region_name, type)
         calendar_obj = calendar.create_calendar(region_obj.id,created_calendar_id, type.upper())
@@ -67,7 +67,6 @@ def list_regions():
     return jsonify(result), 200
 
 
-
 @blueprint.route('/region/<region_id>', methods=['GET', 'OPTIONS'])
 def get_region(region_id):
     result = {}
@@ -77,8 +76,22 @@ def get_region(region_id):
         result['name'] = region_obj.name
         result['address'] = region_obj.address
         result['calendars'] = calendar.get_calendars_by_region(region_obj.id)
-
-
     return jsonify(result), 200
 
+@blueprint.route('/region/<region_id>', methods=['DELETE', 'OPTIONS'])
+def delete_region(region_id):
+    result = {}
+    region_obj = region.get_region(region_id)
+    calendars = calendar.get_calendars_by_region(region_id)
+    if region_obj:
+        for calendar_obj in calendars:
+            calendar_api.delete_calendar(calendar_obj['gcloud_id'])
+        region.delete_region(region_obj.id)
+        result['id_region'] = region_obj.id
+        result['name'] = region_obj.name
+        result['address'] = region_obj.address
+        result['calendars'] = calendars
+        return jsonify(result), 200
+    else:
+        endpoints_exception(404, "REGION_NOT_FOUND")
 
