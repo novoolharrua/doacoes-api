@@ -11,27 +11,29 @@ import logging
 _logger = logging.getLogger(__name__)
 table_name = 'region'
 
+
 class Region():
-    def __init__(self, id, name, address):
+    def __init__(self, id, name, address, population):
         self.id = id
         self.name = name
         self.address = address
+        self.population = population
 
     def __repr__(self):
-        return "<Region(name='%s', adress=%s)>" % (self.name, self.address)
+        return "<Region(name='%s', adress='%s')>" % (self.name, self.address)
 
 
-def create_region(region_name, address):
+def create_region(region_name, address, population):
     db = get_db_instance()
     region = None
     try:
         with db.cursor() as cursor:
             # insert record
-            sql = "INSERT INTO {} (NAME, ADDRESS) VALUES ('{}', '{}')"
-            cursor.execute(sql.format(table_name, region_name, address))
+            sql = "INSERT INTO {} (NAME, ADDRESS, POPULATION) VALUES ('{}', '{}', {})"
+            cursor.execute(sql.format(table_name, region_name, address, population))
             created_id = db.insert_id()
             cursor.execute('commit')
-            region = Region(id=created_id, address=address, name=region_name)
+            region = Region(id=created_id, address=address, name=region_name, population=population)
             return region
     finally:
         db.close()
@@ -50,7 +52,8 @@ def get_regions():
                     data.append({
                         'id_region': row[0],
                         'name': row[1],
-                        'address': row[2]
+                        'address': row[2],
+                        'population': row[3]
                     })
                 return data
             else:
@@ -68,7 +71,7 @@ def get_region(id):
             cursor.execute(sql.format(table_name, id))
             result = cursor.fetchall()[0]
             if result:
-                region = Region(id=result[0], address=result[1], name=result[2])
+                region = Region(id=result[0], address=result[1], name=result[2], population=result[3])
                 return region
             else:
                 return None
