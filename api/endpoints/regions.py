@@ -22,6 +22,7 @@ def post_region():
     {
       "name": "string",
       "address": "string"
+      "population: integer
     }
     :return: a region entity
     """
@@ -29,15 +30,16 @@ def post_region():
     body = request.json
     region_name = body['name']
     region_address = body['address']
+    region_population = body['population']
 
     _logger.info('Creating Region {}'.format(region_name))
 
-    region_obj = region.create_region(region_name=region_name, address=region_address)
+    region_obj = region.create_region(region_name=region_name, address=region_address, population=region_population)
     if region_obj:
         result['id_region'] = region_obj.id
         result['name'] = region_obj.name
         result['address'] = region_obj.address
-
+        result['population'] = region_obj.population
     _logger.info('Region {} created with id {}.'.format(region_name,region_obj.id))
 
 
@@ -48,7 +50,7 @@ def post_region():
         created_calendar_id = calendar_api.create_calendar(region_name, type)
         calendar_obj = calendar.create_calendar(region_obj.id,created_calendar_id, type.upper())
         calendar_dto = {
-            'id': calendar_obj.id,
+            'id_calendar': calendar_obj.id,
             'type': calendar_obj.type,
             'region_id': calendar_obj.region_id,
             'gcloud_url': calendar_obj.gcloud_id
@@ -75,6 +77,7 @@ def get_region(region_id):
         result['id_region'] = region_obj.id
         result['name'] = region_obj.name
         result['address'] = region_obj.address
+        result['population'] = region_obj.population
         result['calendars'] = calendar.get_calendars_by_region(region_obj.id)
     return jsonify(result), 200
 
@@ -90,6 +93,7 @@ def delete_region(region_id):
         result['id_region'] = region_obj.id
         result['name'] = region_obj.name
         result['address'] = region_obj.address
+        result['population'] = region_obj.population
         result['calendars'] = calendars
         return jsonify(result), 200
     else:

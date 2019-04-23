@@ -28,7 +28,7 @@ def get_calendar_by_id(calendar_id):
 
 def create_calendar(region_name, type):
     calendar = {
-        'summary': '{} - {}'.format(region_name, translate_name(type)),
+        'summary': '{} - {}'.format(region_name, translate_name(type.upper())),
         'timeZone': 'America/Sao_Paulo'
     }
     service = get_service()
