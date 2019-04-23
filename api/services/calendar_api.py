@@ -1,5 +1,7 @@
 
 from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
+from utils.name_utils import translate_name
 
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
@@ -24,23 +26,9 @@ def get_calendar_by_id(calendar_id):
 
     return calendar
 
-def list_calendars():
-    service = get_service()
-    result = []
-    page_token = None
-    while True:
-        calendar_list = service.calendarList().list(pageToken=page_token).execute()
-        for calendar_list_entry in calendar_list['items']:
-            result.append(calendar_list_entry)
-        page_token = calendar_list.get('nextPageToken')
-        if not page_token:
-            break
-
-    return result
-
 def create_calendar(region_name, type):
     calendar = {
-        'summary': '{} calendar for {} region'.format(type, region_name),
+        'summary': '{} - {}'.format(region_name, translate_name(type)),
         'timeZone': 'America/Sao_Paulo'
     }
     service = get_service()
@@ -50,31 +38,40 @@ def create_calendar(region_name, type):
 
 def delete_calendar(gcloud_id):
     service = get_service()
-    service.calendars().delete(calendarId='gcloud_id').execute()
-
-
+    try:
+        service.calendars().delete(calendarId=gcloud_id).execute()
+        return True
+    except HttpError:
+        return False
 
 #### EVENTS
 
-def create_event():
+
+def post_event(region, calendar, institution, donation_type, start, stop):
     service = get_service()
     event = {
-        'summary': 'EVENTAO DA PORRA',
-        'location': 'Rodoviaria',
-        'description': 'aehooooooooooo',
+        'summary': '{}'.format(institution.name),
+        'location': region.address,
+        'description': 'Doação de {} para o grupo {}'.format(translate_name(donation_type), region.name),
         'start': {
-            'dateTime': '2019-04-03T06:00:00',
+            'dateTime': start,
             'timeZone': 'America/Sao_Paulo',
         },
         'end': {
-            'dateTime': '2019-04-03T12:00:00',
+            'dateTime': stop,
             'timeZone': 'America/Sao_Paulo',
-        }
+        },
+        'attendees': []
     }
 
-    event = service.events().insert(calendarId='primary', body=event).execute()
-    print ('Event created: %s' % (event.get('htmlLink')))
+    event = service.events().insert(calendarId=calendar.gcloud_id, body=event).execute()
+    print('Event created: %s' % (event.get('htmlLink')))
+    return event
 
+
+def delete_event(calendar_id, event_id):
+    service = get_service()
+    service.events().delete(calendarId=calendar_id, eventId=event_id).execute()
 
 
 def get_events_by_calendar_id(calendar_id):

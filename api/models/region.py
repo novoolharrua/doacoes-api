@@ -45,13 +45,16 @@ def get_regions():
             sql = "select * from {}"
             cursor.execute(sql.format(table_name))
             result = cursor.fetchall()
-            for row in result:
-                data.append({
-                    'id_region': row[0],
-                    'name': row[1],
-                    'address': row[2]
-                })
-            return data
+            if result:
+                for row in result:
+                    data.append({
+                        'id_region': row[0],
+                        'name': row[1],
+                        'address': row[2]
+                    })
+                return data
+            else:
+                return None
     finally:
         db.close()
 
@@ -64,8 +67,23 @@ def get_region(id):
             sql = "select * from {} where ID_REGION = {}"
             cursor.execute(sql.format(table_name, id))
             result = cursor.fetchall()[0]
-            region = Region(id=result[0], address=result[1], name=result[2])
-            return region
+            if result:
+                region = Region(id=result[0], address=result[1], name=result[2])
+                return region
+            else:
+                return None
+    finally:
+        db.close()
+
+def delete_region(id):
+    db = get_db_instance()
+    try:
+        with db.cursor() as cursor:
+            # Remove a single record
+            sql = "delete from {} where ID_REGION = {}"
+            cursor.execute(sql.format(table_name, id))
+            cursor.execute('commit')
+            return True
     finally:
         db.close()
 
