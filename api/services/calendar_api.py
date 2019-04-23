@@ -1,6 +1,8 @@
 
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+from utils.name_utils import translate_name
+
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 
@@ -26,7 +28,7 @@ def get_calendar_by_id(calendar_id):
 
 def create_calendar(region_name, type):
     calendar = {
-        'summary': '{} calendar for {} region'.format(type, region_name),
+        'summary': '{} - {}'.format(region_name, translate_name(type)),
         'timeZone': 'America/Sao_Paulo'
     }
     service = get_service()
@@ -44,12 +46,13 @@ def delete_calendar(gcloud_id):
 
 #### EVENTS
 
-def post_event(region, calendar,  start, stop):
+
+def post_event(region, calendar, institution, donation_type, start, stop):
     service = get_service()
     event = {
-        'summary': '{}'.format('PASTORAL DE RUA'),
+        'summary': '{}'.format(institution.name),
         'location': region.address,
-        'description': 'Doação de {} para o grupo {}'.format(calendar.type, region.name),
+        'description': 'Doação de {} para o grupo {}'.format(translate_name(donation_type), region.name),
         'start': {
             'dateTime': start,
             'timeZone': 'America/Sao_Paulo',
@@ -58,7 +61,6 @@ def post_event(region, calendar,  start, stop):
             'dateTime': stop,
             'timeZone': 'America/Sao_Paulo',
         },
-        'transparency': 'opaque',
         'attendees': []
     }
 

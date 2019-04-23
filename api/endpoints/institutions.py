@@ -28,7 +28,7 @@ def to_dict(institution):
     return dict_format
 
 @blueprint.route('/institution', methods=['POST', 'OPTIONS'])
-def post_region():
+def post_institution():
     """
     institutions post must follow:
     {
@@ -58,13 +58,13 @@ def post_region():
     return jsonify(result), 200
 
 @blueprint.route('/institution', methods=['GET', 'OPTIONS'])
-def get_regions():
+def get_institutions():
     result = institution_model.get_institutions()
     return jsonify(result), 200
 
 
 @blueprint.route('/institution/<institution_id>', methods=['GET', 'OPTIONS'])
-def get_region(institution_id):
+def get_institution(institution_id):
     result = {}
     institution = institution_model.get_institution(institution_id)
     if institution:
@@ -73,7 +73,7 @@ def get_region(institution_id):
     return jsonify(result), 200
 
 @blueprint.route('/institution/<institution_id>', methods=['DELETE', 'OPTIONS'])
-def delete_region(institution_id):
+def delete_institution(institution_id):
     result = {}
     institution = institution_model.get_institution(institution_id)
     if institution:
