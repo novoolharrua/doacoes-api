@@ -38,6 +38,20 @@ def create_calendar(region_id, gcloud_id, type):
         db.close()
 
 
+def get_calendar(calendar_id):
+    db = get_db_instance()
+    data = []
+    try:
+        with db.cursor() as cursor:
+            # Read a single record
+            sql = "select * from {} where ID_CALENDAR = {}"
+            cursor.execute(sql.format(table_name, calendar_id))
+            result = cursor.fetchone()
+            if result:
+                return Calendar(id=result[0], type=result[1], gcloud_id=result[2], region_id=result[3])
+    finally:
+        db.close()
+
 def get_calendars_by_region(region_id):
     db = get_db_instance()
     data = []

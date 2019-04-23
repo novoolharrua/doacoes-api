@@ -8,6 +8,8 @@ from models.region import get_region
 from models.institution import get_institution
 from models import event as event_model
 from services.calendar_api import post_event as create_gcloud_event
+from services.calendar_api import delete_event as delete_gcloud_event
+import datetime
 import logging
 
 
@@ -19,23 +21,39 @@ blueprint = Blueprint('events', __name__)
 def endpoints_exception(code, msg):
     abort(make_response(jsonify(message=msg), code))
 
-def check_free():
-    return True
+
+def find_calendar_based_on_type(donation_type, region_id):
+    if donation_type in ['FOOD', 'CLOTHING', 'RELIGION']:
+        return get_calendar_by_region_and_type(region_id, donation_type)
+    else:
+        return get_calendar_by_region_and_type(region_id, 'OTHERS')
+
 
 def to_dict(event):
     dict_format = {}
     dict_format['id'] = event.id
     dict_format['gcloud_id'] = event.gcloud_id
-    dict_format['date'] = event.date
+    if isinstance(event.date, datetime.date):
+        dict_format['date'] = '{}-{}-{}'.format(event.date.year, event.date.month, event.date.day)
+    else:
+        dict_format['date'] = event.date
     dict_format['period'] = event.period
     dict_format['type'] = event.type
-    dict_format['calendar_id'] = event.calendar.id
-    dict_format['institution'] = event.institution.name
+    dict_format['region'] = {
+        'region_id': event.region.id,
+        'region_address': event.region.address,
+        'region_name': event.region.name
+    }
+    dict_format['institution'] = {
+        'institution_id': event.institution.id,
+        'institution_name': event.institution.name,
+        'institution_email': event.institution.email
+    }
 
     return dict_format
 
-@blueprint.route('/region/<region_id>/event', methods=['POST', 'OPTIONS'])
-def post_event(region_id):
+@blueprint.route('/event', methods=['POST', 'OPTIONS'])
+def post_event():
     """
     date, period, type, gcloud_id, calendar, institution
     account post must follow:
@@ -55,32 +73,59 @@ def post_event(region_id):
     period = body['period']
     donation_type = body['type']
 
-    if not check_free():
-        endpoints_exception(409, "EVENT_ALREADY_IN_TIMESLOT")
 
     institution = get_institution(request.args.get('iid'))
-    region = get_region(region_id)
+    region = get_region(request.args.get('rid'))
+    calendar = find_calendar_based_on_type(donation_type, region.id)
 
-    if donation_type in ['FOOD', 'CLOTHING', 'RELIGION']:
-        calendar = get_calendar_by_region_and_type(region_id, donation_type)
-    else:
-        calendar = get_calendar_by_region_and_type(region_id, 'OTHERS')
+    if not event_model.check_free(date, calendar):
+        endpoints_exception(409, "EVENT_CONFLICT_IN_TIMESLOT")
 
     start, stop = format_date_from_period(date, period)
     created_event = create_gcloud_event(region, calendar, institution, donation_type, date_to_google(start), date_to_google(stop))
     event = event_model.create_event(date=date, period=period, type=donation_type, gcloud_id=created_event['id'],
-                                     calendar=calendar, institution=institution)
+                                     calendar=calendar, institution=institution, region=region)
 
     result = to_dict(event)
     return jsonify(result), 200
 
 
-@blueprint.route('/region/<region_id>/event', methods=['GET', 'OPTIONS'])
-def get_institutions(region_id):
+@blueprint.route('/event', methods=['GET', 'OPTIONS'])
+def get_events():
     result = {}
-    data = []
-    calendars = get_calendars_by_region(region_id)
-    for calendar in calendars:
-        data.append(event_model.get_events_by_calendar_id(calendar['id']))
+    result['data'] =[]
+    iid=request.args.get('iid')
+    rid=request.args.get('rid')
+    events = event_model.list_events(iid=iid, rid=rid)
+    if events:
+        for event in events:
+            result['data'].append(to_dict(event))
 
     return jsonify(result), 200
+
+
+@blueprint.route('/event/<event_id>', methods=['GET', 'OPTIONS'])
+def get_event(event_id):
+    result = {}
+    event = event_model.get_event(event_id)
+    if event:
+        result = to_dict(event)
+    else:
+        endpoints_exception(404, "EVENT_NOT_FOUND")
+
+    return jsonify(result), 200
+
+
+
+@blueprint.route('/event/<event_id>', methods=['DELETE', 'OPTIONS'])
+def delete_event(event_id):
+    result = {}
+    event = event_model.get_event(event_id)
+    if event:
+        delete_gcloud_event(event.calendar.gcloud_id, event.gcloud_id)
+        event_model.delete_event(event.id)
+        result = to_dict(event)
+        return jsonify(result), 200
+    else:
+        endpoints_exception(404, "EVENT_NOT_FOUND")
+

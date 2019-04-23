@@ -69,6 +69,11 @@ def post_event(region, calendar, institution, donation_type, start, stop):
     return event
 
 
+def delete_event(calendar_id, event_id):
+    service = get_service()
+    service.events().delete(calendarId=calendar_id, eventId=event_id).execute()
+
+
 def get_events_by_calendar_id(calendar_id):
     service = get_service()
     page_token = None
