@@ -1,0 +1,7 @@
+Started GET "/" for ::1 at 2019-05-04 12:24:13 -0300
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Library/Ruby/Gems/2.3.0/gems/railties-5.2.3/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Library/Ruby/Gems/2.3.0/gems/railties-5.2.3/lib/rails/templates/rails/welcome/index.html.erb (6.2ms)
+Completed 200 OK in 45ms (Views: 16.3ms | ActiveRecord: 0.0ms)
+
+
