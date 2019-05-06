@@ -12,9 +12,9 @@ github_username:  jekyll
 
 # Team names, titles and social links
 people:
-  - name: Kay Garland
+  - name: Amanda Doacoes
     pic: 1
-    position: Lead Designer
+    position: Representante Igreja Catolica
     social:
       - title: twitter
         url: #
@@ -23,9 +23,9 @@ people:
       - title: stack-overflow
         url: #
 
-  - name: Larry Parker
+  - name: Peter Parker
     pic: 2
-    position: Lead Marketer
+    position: Homem aranha
     social:
       - title: twitter
         url: #
@@ -34,9 +34,9 @@ people:
       - title: linkedin
         url: #
 
-  - name: Diana Petersen
+  - name: Pedro Petersen
     pic: 3
-    position: Lead Developer
+    position:  Dev
     social:
       - title: twitter
         url: #
@@ -44,38 +44,7 @@ people:
         url: #
       - title: google-plus
         url: #
-  - name: Kay Garland
-    pic: 1
-    position: Lead Designer
-    social:
-      - title: twitter
-        url: #
-      - title: facebook
-        url: #
-      - title: stack-overflow
-        url: #
 
-  - name: Larry Parker
-    pic: 2
-    position: Lead Marketer
-    social:
-      - title: twitter
-        url: #
-      - title: facebook
-        url: #
-      - title: linkedin
-        url: #
-
-  - name: Diana Petersen
-    pic: 3
-    position: Lead Developer
-    social:
-      - title: twitter
-        url: #
-      - title: facebook
-        url: #
-      - title: google-plus
-        url: #
 # Patrocinadores da causa
 pat:
   - name: Patrocinador 1
@@ -123,8 +92,8 @@ social:
 
 # Postal address (add as many lines as necessary)
 address:
-  - line: 3481 Melrose Place
-  - line: Beverly Hills, CA 90210
+  - line: Belo Horizonte
+  - line:  Minas Gerais
 # Build settings
 highlighter: rogue
 markdown: kramdown

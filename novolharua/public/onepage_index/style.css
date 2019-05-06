@@ -53,6 +53,16 @@ a:active,
 a.active {
     color: #fec503;
 }
+@media(min-width:320px) and (max-device-width: 900px) {
+    .logo {
+        width: 288px;
+    }
+}
+@media(min-width:1200px) {
+    .logo {
+        width: 430px;
+    }
+}
 
 h1,
 h2,
@@ -60,7 +70,7 @@ h3,
 h4,
 h5,
 h6 {
-    text-transform: uppercase;
+    line-height: 40px;
     font-family: Montserrat, "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 700;
 }
@@ -667,11 +677,82 @@ section h3.section-subheading {
 .team-member p {
     margin-top: 0;
 }
-
+@media (min-width:1200px) {
+    #navbarcontainer {
+        width: 90%;
+    }
+}
 aside.clients img {
     margin: 50px auto;
 }
 
+/* The container */
+.checkboxConteiner {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.checkboxConteiner input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.checkboxConteiner:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkboxConteiner input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.checkboxConteiner input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkboxConteiner .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
 section#contact {
     background-color: #222;
     background-image: url('/onepage_index//img/map-image.png');
@@ -882,4 +963,253 @@ body {
     webkit-tap-highlight-color: #fed136;
 }
 
+/*
+        SLIDDER
+*/
+uk-slider {
+    /* 1 */
+    -webkit-tap-highlight-color: transparent;
+}
+/* Container
+ ========================================================================== */
+/*
+ * 1. Clip child elements
+ */
+.uk-slider-container {
+    /* 1 */
+    overflow: hidden;
+}
+/* Items
+ ========================================================================== */
+/*
+ * 1. Optimize animation
+ * 2. Create a containing block. In Safari it's neither created by `transform` nor `will-change`.
+ */
+.uk-slider-items {
+    /* 1 */
+    will-change: transform;
+    /* 2 */
+    position: relative;
+}
+
+.uk-slider-items {
+    /* 1 */
+    will-change: transform;
+    /* 2 */
+    position: relative;
+}
+/*
+ * 1. Reset list style without interfering with grid
+ * 2. Prevent displaying the callout information on iOS.
+ */
+.uk-slider-items:not(.uk-grid) {
+    display: flex;
+    /* 1 */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    /* 2 */
+    -webkit-touch-callout: none;
+}
+.uk-slider-items.uk-grid {
+    flex-wrap: nowrap;
+}
+/* ========================================================================
+   Component: Width
+ ========================================================================== */
+/* Equal child widths
+ ========================================================================== */
+[class*='uk-child-width'] > * {
+    box-sizing: border-box;
+    width: 100%;
+}
+.uk-child-width-1-2 > * {
+    width: 50%;
+}
+.uk-child-width-1-3 > * {
+    width: calc(100% * 1 / 3.001);
+}
+.uk-child-width-1-4 > * {
+    width: 25%;
+}
+.uk-child-width-1-5 > * {
+    width: 20%;
+}
+.uk-child-width-1-6 > * {
+    width: calc(100% * 1 / 6.001);
+}
+.uk-child-width-auto > * {
+    width: auto;
+}
+/*
+ * 1. Reset the `min-width`, which is set to auto by default, because
+ *    flex items won't shrink below their minimum intrinsic content size.
+ *    Using `1px` instead of `0`, so items still wrap into the next line,
+ *    if they have zero width and padding and the predecessor is 100% wide.
+ */
+.uk-child-width-expand > :not([class*='uk-width']) {
+    flex: 1;
+    /* 1 */
+    min-width: 1px;
+}
+/* Phone landscape and bigger */
+@media (min-width: 640px) {
+    .uk-child-width-1-1\@s > * {
+        width: 100%;
+    }
+    .uk-child-width-1-2\@s > * {
+        width: 50%;
+    }
+    .uk-child-width-1-3\@s > * {
+        width: calc(100% * 1 / 3.001);
+    }
+    .uk-child-width-1-4\@s > * {
+        width: 25%;
+    }
+    .uk-child-width-1-5\@s > * {
+        width: 20%;
+    }
+    .uk-child-width-1-6\@s > * {
+        width: calc(100% * 1 / 6.001);
+    }
+    .uk-child-width-auto\@s > * {
+        width: auto;
+    }
+    .uk-child-width-expand\@s > :not([class*='uk-width']) {
+        flex: 1;
+        min-width: 1px;
+    }
+}
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+    .uk-child-width-1-1\@m > * {
+        width: 100%;
+    }
+    .uk-child-width-1-2\@m > * {
+        width: 50%;
+    }
+    .uk-child-width-1-3\@m > * {
+        width: calc(100% * 1 / 3.001);
+    }
+    .uk-child-width-1-4\@m > * {
+        width: 25%;
+    }
+    .uk-child-width-1-5\@m > * {
+        width: 20%;
+    }
+    .uk-child-width-1-6\@m > * {
+        width: calc(100% * 1 / 6.001);
+    }
+    .uk-child-width-auto\@m > * {
+        width: auto;
+    }
+    .uk-child-width-expand\@m > :not([class*='uk-width']) {
+        flex: 1;
+        min-width: 1px;
+    }
+}
+/* Desktop and bigger */
+@media (min-width: 1200px) {
+    .uk-child-width-1-1\@l > * {
+        width: 100%;
+    }
+    .uk-child-width-1-2\@l > * {
+        width: 50%;
+    }
+    .uk-child-width-1-3\@l > * {
+        width: calc(100% * 1 / 3.001);
+    }
+    .uk-child-width-1-4\@l > * {
+        width: 25%;
+    }
+    .uk-child-width-1-5\@l > * {
+        width: 20%;
+    }
+    .uk-child-width-1-6\@l > * {
+        width: calc(100% * 1 / 6.001);
+    }
+    .uk-child-width-auto\@l > * {
+        width: auto;
+    }
+    .uk-child-width-expand\@l > :not([class*='uk-width']) {
+        flex: 1;
+        min-width: 1px;
+    }
+}
+/* Large screen and bigger */
+@media (min-width: 1600px) {
+    .uk-child-width-1-1\@xl > * {
+        width: 100%;
+    }
+    .uk-child-width-1-2\@xl > * {
+        width: 50%;
+    }
+    .uk-child-width-1-3\@xl > * {
+        width: calc(100% * 1 / 3.001);
+    }
+    .uk-child-width-1-4\@xl > * {
+        width: 25%;
+    }
+    .uk-child-width-1-5\@xl > * {
+        width: 20%;
+    }
+    .uk-child-width-1-6\@xl > * {
+        width: calc(100% * 1 / 6.001);
+    }
+    .uk-child-width-auto\@xl > * {
+        width: auto;
+    }
+    .uk-child-width-expand\@xl > :not([class*='uk-width']) {
+        flex: 1;
+        min-width: 1px;
+    }
+}
+/* Items
+ ========================================================================== */
+/*
+ * 1. Optimize animation
+ * 2. Create a containing block. In Safari it's neither created by `transform` nor `will-change`.
+ */
+.uk-slider-items {
+    /* 1 */
+    will-change: transform;
+    /* 2 */
+    position: relative;
+}
+/*
+ * 1. Reset list style without interfering with grid
+ * 2. Prevent displaying the callout information on iOS.
+ */
+.uk-slider-items:not(.uk-grid) {
+    display: flex;
+    /* 1 */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    /* 2 */
+    -webkit-touch-callout: none;
+}
+.uk-slider-items.uk-grid {
+    flex-wrap: nowrap;
+}
+/* Item
+ ========================================================================== */
+/*
+ * 1. Let items take content dimensions (0 0 auto)
+ * 2. Create position context
+ * 3. Disable horizontal panning gestures in IE11 and Edge
+ * 4. Suppress outline on focus
+ */
+.uk-slider-items > * {
+    /* 1 */
+    flex: none;
+    /* 2 */
+    position: relative;
+    /* 3 */
+    touch-action: pan-y;
+}
+/* 4 */
+.uk-slider-items > :focus {
+    outline: none;
+}
 
