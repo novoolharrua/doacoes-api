@@ -1,5 +1,5 @@
 # Site settings
-title: Your awesome title
+title: Novolharua
 email: your-email@domain.com
 description: > # this means to ignore newlines until "baseurl:"
   Write an awesome description for your new site here. You can edit this
@@ -10,6 +10,121 @@ url: "http://yourdomain.com" # the base hostname & protocol for your site
 twitter_username: jekyllrb
 github_username:  jekyll
 
+# Team names, titles and social links
+people:
+  - name: Kay Garland
+    pic: 1
+    position: Lead Designer
+    social:
+      - title: twitter
+        url: #
+      - title: facebook
+        url: #
+      - title: stack-overflow
+        url: #
+
+  - name: Larry Parker
+    pic: 2
+    position: Lead Marketer
+    social:
+      - title: twitter
+        url: #
+      - title: facebook
+        url: #
+      - title: linkedin
+        url: #
+
+  - name: Diana Petersen
+    pic: 3
+    position: Lead Developer
+    social:
+      - title: twitter
+        url: #
+      - title: facebook
+        url: #
+      - title: google-plus
+        url: #
+  - name: Kay Garland
+    pic: 1
+    position: Lead Designer
+    social:
+      - title: twitter
+        url: #
+      - title: facebook
+        url: #
+      - title: stack-overflow
+        url: #
+
+  - name: Larry Parker
+    pic: 2
+    position: Lead Marketer
+    social:
+      - title: twitter
+        url: #
+      - title: facebook
+        url: #
+      - title: linkedin
+        url: #
+
+  - name: Diana Petersen
+    pic: 3
+    position: Lead Developer
+    social:
+      - title: twitter
+        url: #
+      - title: facebook
+        url: #
+      - title: google-plus
+        url: #
+# Patrocinadores da causa
+pat:
+  - name: Patrocinador 1
+    img: img/logos/envato.jpg
+
+  - name: Patrocinador 2
+    img: img/logos/designmodo.jpg
+
+  - name: Patrocinador 3
+    img: img/logos/themeforest.jpg
+
+  - name: Patrocinador 4
+    img: img/logos/creative-market.jpg
+
+  - name: Patrocinador 5
+    img: img/logos/themeforest.jpg
+
+  - name: Patrocinador 6
+    img: img/logos/creative-market.jpg
+doacao:
+    - name: Alimentação
+
+    - name: Religiosa
+
+    - name: Roupas
+
+    - name: Cobertores
+
+    - name: Assistencia Medica
+
+    - name: Necessidades
+
+# Social networks usernames (many more available: google-plus, flickr, dribbble, pinterest, instagram, tumblr, linkedin, etc.)
+social:
+  - title: twitter
+    url: http://twitter.com/jekyllrb
+  - title: facebook
+    url:
+  - title: stack-overflow
+    url: http://stackoverflow.com/questions/tagged/jekyll
+  - title: bitbucket
+    url: http://bitbucket.org/jekyll
+  - title: github
+    url: http://github.com/jekyll
+
+# Postal address (add as many lines as necessary)
+address:
+  - line: 3481 Melrose Place
+  - line: Beverly Hills, CA 90210
 # Build settings
 highlighter: rogue
 markdown: kramdown
