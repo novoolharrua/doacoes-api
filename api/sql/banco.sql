@@ -53,12 +53,19 @@ CREATE TABLE IF NOT EXISTS `donations`.`event` (
   `PERIOD` VARCHAR(45) NOT NULL,
   `GCLOUD_ID` VARCHAR(45) NOT NULL,
   `TYPE` VARCHAR(45) NOT NULL,
+  `ID_REGION` INT NOT NULL,
   `ID_CALENDAR` INT NOT NULL,
   `ID_INSTITUTION` INT NOT NULL,
   `CREATED_AT` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
   PRIMARY KEY (`ID_EVENT`),
-  INDEX `fk_event_calendar1_idx` (`ID_CALENDAR` ASC),
+  INDEX `fk_event_region1_idx` (`ID_REGION` ASC),
   INDEX `fk_event_institution1_idx` (`ID_INSTITUTION` ASC),
+  INDEX `fk_event_calendar1_idx` (`ID_CALENDAR` ASC),
+  CONSTRAINT `fk_event_region1`
+    FOREIGN KEY (`ID_REGION`)
+    REFERENCES `donations`.`region` (`ID_REGION`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_event_calendar1`
     FOREIGN KEY (`ID_CALENDAR`)
     REFERENCES `donations`.`calendar` (`ID_CALENDAR`)
