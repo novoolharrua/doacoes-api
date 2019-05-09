@@ -38,9 +38,9 @@ def parse_event_obj(db_row):
     period = db_row[2]
     gcloud_id = db_row[3]
     type = db_row[4]
-    id_calendar = db_row[5]
-    id_institution = db_row[6]
-    id_region = db_row[7]
+    id_region = db_row[5]
+    id_calendar = db_row[6]
+    id_institution = db_row[7]
     calendar = calendar_model.get_calendar(id_calendar)
     institution = institution_model.get_institution(id_institution)
     region = region_model.get_region(id_region)
@@ -68,7 +68,7 @@ def create_event(date, period, type, gcloud_id, calendar, institution, region):
         db.close()
 
 
-def list_events(iid, rid):
+def list_events(iid=None, rid=None, type=None, date=None):
     db = get_db_instance()
     data = []
     try:
@@ -79,6 +79,10 @@ def list_events(iid, rid):
                 sql += ' and ID_INSTITUTION = {}'.format(iid)
             if rid:
                 sql += ' and ID_REGION = {}'.format(rid)
+            if type:
+                sql += ' and TYPE = "{}"'.format(type)
+            if date:
+                sql += ' and DATE >= "{}"'.format(date)
             cursor.execute(sql.format(table_name))
             result = cursor.fetchall()
             if result:
@@ -119,14 +123,14 @@ def delete_event(id):
     finally:
         db.close()
 
-def check_free(date, calendar):
+def check_free(date, calendar, type):
     db = get_db_instance()
     event = None
     try:
         with db.cursor() as cursor:
             # Read a single record
-            sql = "select * from {} where ID_CALENDAR = {} and DATE = '{}'"
-            cursor.execute(sql.format(table_name, calendar.id, date))
+            sql = "select * from {} where ID_REGION = {} and DATE = '{}' and TYPE = '{}'"
+            cursor.execute(sql.format(table_name, calendar.id, date, type))
             result = cursor.fetchone()
             if not result:
                 return True

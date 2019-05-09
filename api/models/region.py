@@ -69,7 +69,7 @@ def get_region(id):
             # Read a single record
             sql = "select * from {} where ID_REGION = {}"
             cursor.execute(sql.format(table_name, id))
-            result = cursor.fetchall()[0]
+            result = cursor.fetchone()
             if result:
                 region = Region(id=result[0], address=result[1], name=result[2], population=result[3])
                 return region

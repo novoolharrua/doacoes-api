@@ -73,12 +73,11 @@ def post_event():
     period = body['period']
     donation_type = body['type']
 
-
     institution = get_institution(request.args.get('iid'))
     region = get_region(request.args.get('rid'))
     calendar = find_calendar_based_on_type(donation_type, region.id)
 
-    if not event_model.check_free(date, calendar):
+    if not event_model.check_free(date, calendar, donation_type):
         endpoints_exception(409, "EVENT_CONFLICT_IN_TIMESLOT")
 
     start, stop = format_date_from_period(date, period)
@@ -94,9 +93,11 @@ def post_event():
 def get_events():
     result = {}
     result['data'] =[]
-    iid=request.args.get('iid')
-    rid=request.args.get('rid')
-    events = event_model.list_events(iid=iid, rid=rid)
+    iid = request.args.get('iid')
+    rid = request.args.get('rid')
+    type = request.args.get('type')
+    date = request.args.get('date')
+    events = event_model.list_events(iid=iid, rid=rid, type=type, date=date)
     if events:
         for event in events:
             result['data'].append(to_dict(event))
