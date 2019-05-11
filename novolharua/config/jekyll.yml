@@ -77,6 +77,17 @@ doacao:
 
     - name: Necessidades
 
+instituicao:
+  - name: Pastoral rua
+
+  - name: Abc Paulista
+
+  - name: Atletico-MG
+
+  - name: Cruzeiro
+
+  - name: America-MG
+
 # Social networks usernames (many more available: google-plus, flickr, dribbble, pinterest, instagram, tumblr, linkedin, etc.)
 social:
   - title: twitter
