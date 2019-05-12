@@ -1,11 +1,11 @@
 <!-- Services Section -->
     <section id="tableCrud">
         <div class="container" >
-            <div class="uk-overflow-auto">
+            <h1 class="section-heading">Regiões Cadastradas</h1>
+            <div class="uk-overflow-auto my-custom-scrollbar">
                 <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
                     <thead>
                     <tr>
-                        <th class="uk-table-shrink"><h3 class="section-subheading text-muted">Selecionar</h3></th>
                         <th class="uk-table-expand"><h3 class="section-subheading text-muted">Nome</h3></th>
                         <th class="uk-table-shrink"><h3 class="section-subheading text-muted">Visualizar</h3></th>
                         <th class="uk-table-shrink"><h3 class="section-subheading text-muted">Editar</h3></th>
@@ -14,10 +14,9 @@
                     </thead>
 
                     <tbody>
-                    {% for instituicao in site.instituicao %}
+                    {% for regiao in site.regiao %}
                     <tr>
-                        <td><input class="uk-checkbox" type="checkbox"></td>
-                        <td class="uk-text-truncate">{{instituicao.name}}</td>
+                        <td class="uk-text-truncate">{{regiao.name}}</td>
                         <td><a href="#registro_modal" data-toggle="modal" style="border-radius: 10px; margin: 10px;padding: 10px; font-weight: 700;" class="page-scroll btn btn-xl">Visualizar</a></td>
                         <td><a href="#registro_modal" data-toggle="modal" style="border-radius: 10px; margin: 10px;padding: 10px; font-weight: 700;" class="page-scroll btn btn-xl">Editar</a></td>
                         <td><a href="#registro_modal" data-toggle="modal" style="border-radius: 10px; margin: 10px;padding: 10px; font-weight: 700;" class="page-scroll btn btn-xl">Deletar</a></td>
