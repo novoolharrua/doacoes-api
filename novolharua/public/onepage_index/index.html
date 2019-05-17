@@ -25,6 +25,7 @@
     <!-- UIkit JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.4/js/uikit.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.4/js/uikit-icons.min.js"></script>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -41,7 +42,7 @@
     <body id="page-top" class="index">
 
     <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar inside-navbar-default navbar-fixed-top">
         <div id="navbarcontainer" class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header page-scroll">
@@ -51,7 +52,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">Novolharua</a>
+                <a class="navbar-brand page-scroll" href="#localhost:8000/onepage_index">Novolharua</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -60,6 +61,9 @@
                     <li class="hidden">
                         <a href="#page-top"></a>
                     </li>
+                    
+                    
+                    
                     <li>
                         <a class="page-scroll" href="#page-top">Inicio</a>
                     </li>
@@ -79,30 +83,58 @@
                         <a href="#registro_modal" data-toggle="modal" style="border-radius: 10px; margin: 10px;padding: 10px; font-weight: 700;" class="page-scroll btn btn-xl">Quero Participar</a>
                     </li>
                     <li>
-                        <a href="#login_modal" data-toggle="modal" style="border-radius: 10px;margin: 10px; padding: 10px;font-weight: 700;"class="page-scroll btn btn-xl">Já sou Doador</a>
+                        <a href="#login_modal" data-toggle="modal" style="border-radius: 10px;margin: 10px; padding: 10px;font-weight: 700;"class="page-scroll btn btn-xl">Já Sou Doador</a>
                     </li>
+                    
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container-fluid -->
     </nav>
+<!--
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+ -->
 
-    <!-- Header -->
+
+     <!-- Header -->
     <header id="titulos">
         <div class="container">
             <div class="intro-text">
                 <div class="intro-lead-in">Unidos Para Ajudar a População em Situação de Rua</div>
                 <div id="titulo1" class="intro-heading">Tome a Atitude!</div>
-                <a href="#services" style="border-radius: 10px;margin: 20px" class="page-scroll btn btn-xl">Quero Participar</a>
-                <a href="#services" style="border-radius: 10px;"class="page-scroll btn btn-xl">Já sou Doador</a>
-
+                <a href="#registro_modal" data-toggle="modal" style="border-radius: 10px; margin: 10px;padding: 10px; font-weight: 700;" class="page-scroll btn btn-xl">Quero Participar</a>
+                <a href="#login_modal" data-toggle="modal" style="border-radius: 10px;margin: 10px; padding: 10px;font-weight: 700;"class="page-scroll btn btn-xl">Já Sou Doador</a>
             </div>
         </div>
     </header>
 <!--
         
-          <a class="page-link" href="/onepage_index//about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
         
           
         
@@ -114,29 +146,7 @@
 
 
     <!-- Services Section -->
-    <section id="quemsomos" class="bg-light-yellow">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div>
-                        <div class="col-md-4">
-                            <img class="logo" src="/onepage_index/img/logos/logo.jpg" alt="Logo do Novo Olhar Rua" />
-                        </div>
-                        <div class="col-md-8">
-                            <h1 class="section-heading">Unidos Para Ajudar a População em Situação de Rua</h1>
-                            <h3 class="section-subheading text-muted">O que todos nós precisamos para agir em prol da população de rua é termos um Novo Olhar. Não um olhar de administrador de empresas, de um homem público, de um mantenedor da ordem ou de quem simplesmente doa alimentos, mas SIM um olhar empático de quem se imagina em situação de rua.</h3>
-                            <h4 class="section-heading">Como Surgiu?</h4>
-                            <h3 class="section-subheading text-muted">O Projeto Novolharua surgiu da observação de múltiplas ações desencadeadas pelos órgãos públicos e pela sociedade civil em prol da população em situação de rua, sem, entretanto, uma necessária ordenação, gerando desperdício de tempo e dinheiro. Como dizem alguns moradores da rua: “Num dia muita comida, no outro passo fome, ninguém para ajudar”.</h3>
-                            <h4 class="section-heading">Objetivos</h4>
-                            <h3 class="section-subheading text-muted">Criar e disponibilizar informações atualizadas a cerca de serviços ofertados in loco para a população em situação de Rua de Belo Horizonte com o intuito de facilitar, organizar, articular e qualificar as diversas ações de pessoas e grupos voluntários.</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Services Section -->
-    <section id="diretoria">
+    <section id="diretoria" class="bg-light-yellow">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -179,7 +189,72 @@
         </div>
     </section>
     <!-- Services Section -->
-    <section id="patrocinadores" class="bg-light-yellow">
+    <section id="quemsomos" >
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        <div class="col-md-4">
+                            <img class="logo" src="/onepage_index/img/logos/logo.jpg" alt="Logo do Novo Olhar Rua" />
+                        </div>
+                        <div class="col-md-8">
+                            <h1 class="section-heading">Unidos Para Ajudar a População em Situação de Rua</h1>
+                            <h3 class="section-subheading text-muted">O que todos nós precisamos para agir em prol da população de rua é termos um Novo Olhar. Não um olhar de administrador de empresas, de um homem público, de um mantenedor da ordem ou de quem simplesmente doa alimentos, mas SIM um olhar empático de quem se imagina em situação de rua.</h3>
+                            <h4 class="section-heading">Como Surgiu?</h4>
+                            <h3 class="section-subheading text-muted">O Projeto Novolharua surgiu da observação de múltiplas ações desencadeadas pelos órgãos públicos e pela sociedade civil em prol da população em situação de rua, sem, entretanto, uma necessária ordenação, gerando desperdício de tempo e dinheiro. Como dizem alguns moradores da rua: “Num dia muita comida, no outro passo fome, ninguém para ajudar”.</h3>
+                            <h4 class="section-heading">Objetivos</h4>
+                            <h3 class="section-subheading text-muted">Criar e disponibilizar informações atualizadas a cerca de serviços ofertados in loco para a população em situação de Rua de Belo Horizonte com o intuito de facilitar, organizar, articular e qualificar as diversas ações de pessoas e grupos voluntários.</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Services Section -->
+    <section id="diretoria" class="bg-light-yellow">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Apoiadores e Doadores</h2>
+                    <h3 class="section-subheading text-muted">Alguns dos Apoiadores e Doadores que fazem parte dessa história.</h3>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div uk-slider>
+                    <ul class="uk-slider-items uk-child-width-1-3@s uk-child-width-1-2@">
+                        
+                        <li>
+                            <div class="team-member">
+                            <img src="img/team/1.jpg" class="img-responsive img-circle" alt="">
+                            <h4>Amanda Doacoes</h4>
+                            <p class="text-muted">Representante Igreja Catolica</p>
+                            </div>
+                        </li>
+                        
+                        <li>
+                            <div class="team-member">
+                            <img src="img/team/2.jpg" class="img-responsive img-circle" alt="">
+                            <h4>Peter Parker</h4>
+                            <p class="text-muted">Homem aranha</p>
+                            </div>
+                        </li>
+                        
+                        <li>
+                            <div class="team-member">
+                            <img src="img/team/3.jpg" class="img-responsive img-circle" alt="">
+                            <h4>Pedro Petersen</h4>
+                            <p class="text-muted">Dev</p>
+                            </div>
+                        </li>
+                        
+                    </ul>
+                </div>
+                <img src="/onepage_index//img/hand-move.svg" style="width: 40px;height: 40px;color: gray"/>
+            </div>
+        </div>
+    </section>
+    <!-- Services Section -->
+    <section id="patrocinadores">
         <div class="container" >
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -463,7 +538,9 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="/onepage_index//js/agency.js"></script>
-
+    <!-- JQUERY -->
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
 
     </body>
 </html>

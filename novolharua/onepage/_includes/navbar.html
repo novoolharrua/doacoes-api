@@ -1,5 +1,5 @@
 <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar inside-navbar-default navbar-fixed-top">
         <div id="navbarcontainer" class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header page-scroll">
@@ -9,7 +9,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">{{site.title}}</a>
+                <a class="navbar-brand page-scroll" href="#localhost:8000/onepage_index">{{site.title}}</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -18,6 +18,41 @@
                     <li class="hidden">
                         <a href="#page-top"></a>
                     </li>
+                    {% if page.user_plan == "admin" %}
+                    <li>
+                        <a class="page-scroll" href="{{site.baseurl}}/admin">Inicio</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="{{site.baseurl}}/admin/informacoes">Informações Uteis</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="{{site.baseurl}}/admin/regiao">Regiões</a>
+                    </li>
+                    <li>
+                        <a href="{{site.baseurl}}/admin" data-toggle="modal" style="border-radius: 10px; margin: 10px;padding: 10px; font-weight: 700;" class="page-scroll btn btn-xl">Admin</a>
+                    </li>
+                    <li>
+                        <a href="{{site.baseurl}}/" data-toggle="modal" style="border-radius: 10px;margin: 10px; padding: 10px;font-weight: 700;"class="page-scroll btn btn-xl">Sair</a>
+                    </li>
+                    {% endif %}
+                    {% if page.user_plan == "instituicao" %}
+                    <li>
+                        <a class="page-scroll" href="{{site.baseurl}}/instituicao">Inicio</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#modal_evento">Criar Evento</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="{{site.baseurl}}/instituicao/perfil">Perfil</a>
+                    </li>
+                    <li>
+                        <a href="{{site.baseurl}}/instituicao" data-toggle="modal" style="border-radius: 10px; margin: 10px;padding: 10px; font-weight: 700;" class="page-scroll btn btn-xl">Instituição</a>
+                    </li>
+                    <li>
+                        <a href="{{site.baseurl}}/onepage_index" data-toggle="modal" style="border-radius: 10px;margin: 10px; padding: 10px;font-weight: 700;"class="page-scroll btn btn-xl">Sair</a>
+                    </li>
+                    {% endif %}
+                    {% if page.user_plan == "onepage" %}
                     <li>
                         <a class="page-scroll" href="#page-top">Inicio</a>
                     </li>
@@ -34,11 +69,12 @@
                         <a class="page-scroll" href="#contact">Contato</a>
                     </li>
                     <li>
-                        <a href="#" data-toggle="modal" style="border-radius: 10px; margin: 10px;padding: 10px; font-weight: 700;" class="page-scroll btn btn-xl">Admin</a>
+                        <a href="#registro_modal" data-toggle="modal" style="border-radius: 10px; margin: 10px;padding: 10px; font-weight: 700;" class="page-scroll btn btn-xl">Quero Participar</a>
                     </li>
                     <li>
-                        <a href="#" data-toggle="modal" style="border-radius: 10px;margin: 10px; padding: 10px;font-weight: 700;"class="page-scroll btn btn-xl">Sair</a>
+                        <a href="#login_modal" data-toggle="modal" style="border-radius: 10px;margin: 10px; padding: 10px;font-weight: 700;"class="page-scroll btn btn-xl">Já Sou Doador</a>
                     </li>
+                    {% endif %}
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

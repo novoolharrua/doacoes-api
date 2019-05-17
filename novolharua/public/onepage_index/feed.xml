@@ -6,9 +6,9 @@
 </description>
     <link>http://yourdomain.com/onepage_index//</link>
     <atom:link href="http://yourdomain.com/onepage_index//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 06 May 2019 16:59:53 -0300</pubDate>
-    <lastBuildDate>Mon, 06 May 2019 16:59:53 -0300</lastBuildDate>
-    <generator>Jekyll v2.5.3</generator>
+    <pubDate>Mon, 13 May 2019 22:20:15 -0300</pubDate>
+    <lastBuildDate>Mon, 13 May 2019 22:20:15 -0300</lastBuildDate>
+    <generator>Jekyll v3.7.0</generator>
     
       <item>
         <title>Dreams</title>
@@ -19,7 +19,7 @@
         <guid isPermaLink="true">http://yourdomain.com/onepage_index//web%20development/2014/07/18/project-1.html</guid>
         
         
-        <category>web development</category>
+        <category>Web Development</category>
         
       </item>
     
@@ -32,7 +32,7 @@
         <guid isPermaLink="true">http://yourdomain.com/onepage_index//web%20development/2014/07/17/project-2.html</guid>
         
         
-        <category>web development</category>
+        <category>Web Development</category>
         
       </item>
     
@@ -45,20 +45,7 @@
         <guid isPermaLink="true">http://yourdomain.com/onepage_index//web%20development/2014/07/16/project-3.html</guid>
         
         
-        <category>web development</category>
-        
-      </item>
-    
-      <item>
-        <title>Round Icons</title>
-        <description>
-</description>
-        <pubDate>Tue, 15 Jul 2014 00:00:00 -0300</pubDate>
-        <link>http://yourdomain.com/onepage_index//web%20development/2014/07/15/project-6.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/onepage_index//web%20development/2014/07/15/project-6.html</guid>
-        
-        
-        <category>web development</category>
+        <category>Web Development</category>
         
       </item>
     
@@ -71,7 +58,20 @@
         <guid isPermaLink="true">http://yourdomain.com/onepage_index//web%20development/2014/07/15/project-4.html</guid>
         
         
-        <category>web development</category>
+        <category>Web Development</category>
+        
+      </item>
+    
+      <item>
+        <title>Round Icons</title>
+        <description>
+</description>
+        <pubDate>Tue, 15 Jul 2014 00:00:00 -0300</pubDate>
+        <link>http://yourdomain.com/onepage_index//web%20development/2014/07/15/project-6.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/onepage_index//web%20development/2014/07/15/project-6.html</guid>
+        
+        
+        <category>Web Development</category>
         
       </item>
     
@@ -84,7 +84,7 @@
         <guid isPermaLink="true">http://yourdomain.com/onepage_index//web%20development/2014/07/14/project-5.html</guid>
         
         
-        <category>web development</category>
+        <category>Web Development</category>
         
       </item>
     
