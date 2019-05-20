@@ -4,6 +4,7 @@
 from flask import Blueprint, jsonify, request, abort, make_response
 from  models import institution as institution_model
 from utils.password_utils import convert_md5
+import datetime
 import logging
 
 
@@ -34,7 +35,10 @@ def to_dict(institution):
     dict_format['types'] = institution.types.split(',')
     dict_format['shelter'] = institution.shelter
     dict_format['status'] = status_enum[str(institution.status)]
-    dict_format['created_at'] = institution.created_at.strftime('%Y-%m-%d %H:%M:%S')
+    if isinstance(institution.created_at, datetime.date):
+        dict_format['created_at'] = institution.created_at.strftime('%Y-%m-%d %H:%M:%S')
+    else:
+        dict_format['created_at'] = institution
     return dict_format
 
 @blueprint.route('/institution', methods=['POST', 'OPTIONS'])
