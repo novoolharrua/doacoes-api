@@ -131,3 +131,42 @@ def put_institution(institution_id):
         return jsonify(result), 200
     else:
         endpoints_exception(404, "REGION_NOT_FOUND")
+
+
+@blueprint.route('/institution/auth', methods=['GET', 'OPTIONS'])
+def auth_institution():
+    email = request.args.get('email', None)
+    passwd = request.args.get('passwd', None)
+
+    result = {}
+    if email:
+        institution = institution_model.get_institution_by_email(email)
+    else:
+        endpoints_exception(400, "EMAIL_PARAM_NOT_FOUND")
+
+    if passwd and convert_md5(passwd) == institution.passwd:
+        token = institution_model.generate_token(institution)
+        result = {
+            "token": token.decode('utf-8'),
+            "duration": 3600
+        }
+    else:
+        endpoints_exception(400, "BAD_OR_MISSING_PASSWORD")
+
+    return jsonify(result), 200
+
+@blueprint.route('/institution/validate_token', methods=['GET', 'OPTIONS'])
+def validade_jwt():
+    token = request.args.get('token', None)
+
+    result = {}
+    decoded_payload = None
+    if token:
+        decoded_payload = institution_model.decode_token(token)
+    else:
+        endpoints_exception(400, "MISSING_TOKEN")
+
+    if decoded_payload['expiration_date'] < datetime.datetime.now():
+        endpoints_exception(401, "TOKEN_EXPIRED")
+    else:
+        return '', 200

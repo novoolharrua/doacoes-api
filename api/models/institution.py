@@ -6,8 +6,8 @@ A model for the region entity.
 """
 from services.database import get_db_instance
 import logging
-from datetime import datetime
-
+from datetime import datetime, timedelta
+import jwt
 
 _logger = logging.getLogger(__name__)
 table_name = 'institution'
@@ -108,6 +108,25 @@ def get_institution(iid):
     finally:
         db.close()
 
+def get_institution_by_email(email):
+    db = get_db_instance()
+    institution = None
+    try:
+        with db.cursor() as cursor:
+            # Read a single record
+            sql = "select * from {} where EMAIL = '{}'"
+            cursor.execute(sql.format(table_name, email))
+            result = cursor.fetchone()
+            if result:
+                institution = Institution(id=result[0], address=result[1], name=result[2], email=result[3],
+                                          passwd=result[4], types=result[5], shelter=result[6], status=result[7],
+                                          created_at=result[8])
+                return institution
+            else:
+                return None
+    finally:
+        db.close()
+
 def delete_institution(iid):
     db = get_db_instance()
     try:
@@ -157,3 +176,22 @@ def update_institution(institution, name, address, email, passwd, types, shelter
             return institution
     finally:
         db.close()
+
+
+def generate_token(institution):
+    payload = {
+        'iid': institution.id,
+        'email': institution.email,
+        'passwd': institution.passwd,
+        'token_creation': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        'duration': 3600
+    }
+    encoded_jwt = jwt.encode(payload, "lil'precious", algorithm='HS256')
+    return encoded_jwt
+
+
+def decode_token(token):
+    payload = jwt.decode(token, "lil'precious", algorithms=['HS256'])
+    payload['expiration_date'] = datetime.strptime(payload['token_creation'], '%Y-%m-%d %H:%M:%S') + \
+                                 timedelta(seconds=payload['duration'])
+    return payload
