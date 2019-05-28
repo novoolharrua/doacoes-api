@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*
 
 from flask import Blueprint, jsonify, request, abort, make_response
-from  models import institution as institution_model
+from models import institution as institution_model
 from utils.password_utils import convert_md5
 import datetime
 import logging
