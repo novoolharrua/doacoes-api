@@ -1,0 +1,25 @@
+.img-thumbnail{
+    border-radius: 16px;
+}
+.img-raised{
+    @include shadow-big-image();
+}
+
+.size-img{
+    width: 50vh;
+    height: 50vh;
+}
+.rounded{
+    border-radius: $border-radius-large !important;
+}
+
+.rounded-circle {
+    border-radius: 50%!important;
+}
+.rounded-box{
+    border-radius: 10%!important;
+}
+.responsive-image {
+  max-width: 50%;
+  margin: 0 auto;
+}
