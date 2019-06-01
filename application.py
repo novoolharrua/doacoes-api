@@ -17,10 +17,13 @@ CORS(app)
 
 @app.route("/")
 def hello():
-    return "The Horribly Fast Api with the Extremely Efficient Endpoints by Lucas Ferreira"
+    return "The Horribly Fast Api with Extremely Efficient Endpoints by Lucas Ferreira"
 
 app.register_blueprint(status_bp)
-print("CARAIO: {}".format(__name__))
+app.register_blueprint(regions_bp)
+app.register_blueprint(events_bp)
+app.register_blueprint(institutions_bp)
+app.register_blueprint(infos_bp)
 
 if __name__ == "__main__":
     app.register_blueprint(status_bp)
