@@ -1,6 +1,0 @@
-env
-.idea
-__pycache__/
-*.json
-token.pickle
-config_*.sh
