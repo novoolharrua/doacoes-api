@@ -27,6 +27,12 @@
 from flask import Flask
 app = Flask(__name__)
 
+from endpoints.status import blueprint as status_bp
+from endpoints.regions import blueprint as regions_bp
+from endpoints.events import blueprint as events_bp
+from endpoints.institutions import blueprint as institutions_bp
+from endpoints.infos import blueprint as infos_bp
+
 @app.route("/")
 def hello():
     return "Hello World!"
