@@ -17,9 +17,10 @@ CORS(app)
 
 @app.route("/")
 def hello():
-    return "Hello Flask, on Azure App Service for Linux"
+    return "The Horribly Fast Api with the Extremely Efficient Endpoints by Lucas Ferreira"
 
 app.register_blueprint(status_bp)
+print(__name__)
 
 if __name__ == "__main__":
     app.register_blueprint(status_bp)
