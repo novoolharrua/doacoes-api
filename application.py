@@ -16,6 +16,9 @@ CORS(app)
 ####################################################################
 
 if __name__ == "__main__":
+    @app.route("/")
+    def hello():
+        return "Hello Flask, on Azure App Service for Linux"
     app.register_blueprint(status_bp)
     app.register_blueprint(regions_bp)
     app.register_blueprint(events_bp)
