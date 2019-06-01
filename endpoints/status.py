@@ -17,13 +17,14 @@ def get_readiness_request():
     result = {
         "API": "OK"
     }
-
-    db = get_db_instance()
-    if db:
-        result['database'] = 'OK'
-    else:
+    try:
+        db = get_db_instance()
+        if db:
+            result['database'] = 'OK'
+            db.close()
+    except:
         result['database'] = 'ERROR'
-    db.close()
+
 
     #TODO: google api ready
 
