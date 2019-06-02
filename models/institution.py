@@ -82,7 +82,7 @@ def get_institutions():
                         'types': row[5].split(','),
                         'shelter': row[6],
                         'status': status_enum[str(row[7])],
-                        'created_at': row[8].strftime('%Y-%m-%d %H:%M:%S')
+                        'created_at': row[8].strftime('%Y-%m-%d %H:%M:%S'),
                         'cpf_cnpj': row[9]
                     })
                 return data
