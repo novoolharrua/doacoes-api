@@ -34,6 +34,7 @@ def to_dict(institution):
     dict_format['passwd'] = institution.passwd
     dict_format['types'] = institution.types.split(',')
     dict_format['shelter'] = institution.shelter
+    dict_format['cpf_cnpj'] = institution.cpf_cnpj
     dict_format['status'] = status_enum[str(institution.status)]
     if isinstance(institution.created_at, datetime.date):
         dict_format['created_at'] = institution.created_at.strftime('%Y-%m-%d %H:%M:%S')
@@ -51,7 +52,8 @@ def post_institution():
       "email" string,
       "passwd": string,
       "types": string,
-      "shelter": int
+      "shelter": int,
+      "cpf_cnpj: string
     }
     :return: a region entity
     """
@@ -64,6 +66,7 @@ def post_institution():
     passwd = convert_md5(body['passwd'])
     types = body['types']
     shelter = int(body['shelter'])
+    email = body['cpf_cnpj']
 
     institution = institution_model.create_institution(name=name, address=address, email=email, passwd=passwd,
                                                        types=types, shelter=shelter, status=0)
@@ -125,10 +128,11 @@ def put_institution(institution_id):
     types = body.get("types", None)
     shelter = body.get("shelter", None)
     status = body.get("status", None)
+    cpf_cnpj = body.get("cpf_cnpj", None)
 
     institution = institution_model.get_institution(institution_id)
     if institution:
-        institution_model.update_institution(institution, name, address, email, passwd, types, shelter, status)
+        institution_model.update_institution(institution, name, address, email, passwd, types, shelter, status, cpf_cnpj)
         result = to_dict(institution)
         return jsonify(result), 200
     else:

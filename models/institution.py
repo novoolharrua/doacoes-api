@@ -28,7 +28,7 @@ status_enum_reverse = {
 }
 
 class Institution():
-    def __init__(self, id, address, name, email, passwd, types, shelter, status, created_at):
+    def __init__(self, id, address, name, email, passwd, types, shelter, status, created_at, cpf_cnpj):
         self.id = id
         self.address = address
         self.name = name
@@ -38,24 +38,25 @@ class Institution():
         self.shelter = shelter
         self.status = status
         self.created_at = created_at
+        self.cpf_cnpj = cpf_cnpj
 
     def __repr__(self):
         return "<Institution(id='%s', name=%s)>" % (self.id, self.name)
 
 
-def create_institution(address, name, email, passwd, types, shelter, status):
+def create_institution(address, name, email, passwd, types, shelter, status, cpf_cnpj):
     db = get_db_instance()
     institution = None
     try:
         with db.cursor() as cursor:
             # insert record
-            sql = "INSERT INTO {} (ADDRESS, NAME, EMAIL, PASSWD, TYPES, SHELTER, STATUS) VALUES " \
-                  "('{}', '{}', '{}','{}','{}',{},{})"
-            cursor.execute(sql.format(table_name, address, name, email, passwd, types, shelter, status))
+            sql = "INSERT INTO {} (ADDRESS, NAME, EMAIL, PASSWD, TYPES, SHELTER, STATUS, CPF_CNPJ) VALUES " \
+                  "('{}', '{}', '{}','{}','{}',{},{},'{}')"
+            cursor.execute(sql.format(table_name, address, name, email, passwd, types, shelter, status, cpf_cnpj))
             created_id = db.insert_id()
             cursor.execute('commit')
             institution = Institution(id=created_id, address=address, name=name, email=email, passwd=passwd,
-                                      types=types, shelter=shelter, status=status,
+                                      types=types, shelter=shelter, status=status, cpf_cnpj=cpf_cnpj,
                                       created_at=datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
             return institution
     finally:
@@ -82,6 +83,7 @@ def get_institutions():
                         'shelter': row[6],
                         'status': status_enum[str(row[7])],
                         'created_at': row[8].strftime('%Y-%m-%d %H:%M:%S')
+                        'cpf_cnpj': row[9]
                     })
                 return data
             else:
@@ -101,7 +103,7 @@ def get_institution(iid):
             if result:
                 institution = Institution(id=result[0], address=result[1], name=result[2], email=result[3],
                                           passwd=result[4], types=result[5], shelter=result[6], status=result[7],
-                                          created_at=result[8])
+                                          created_at=result[8], cpf_cnpj=result[9])
                 return institution
             else:
                 return None
@@ -120,7 +122,7 @@ def get_institution_by_email(email):
             if result:
                 institution = Institution(id=result[0], address=result[1], name=result[2], email=result[3],
                                           passwd=result[4], types=result[5], shelter=result[6], status=result[7],
-                                          created_at=result[8])
+                                          created_at=result[8], cpf_cnpj=[9])
                 return institution
             else:
                 return None
@@ -139,7 +141,7 @@ def delete_institution(iid):
     finally:
         db.close()
 
-def update_institution(institution, name, address, email, passwd, types, shelter, status):
+def update_institution(institution, name, address, email, passwd, types, shelter, status, cpf_cnpj):
     from utils.password_utils import convert_md5
     db = get_db_instance()
     try:
@@ -167,6 +169,9 @@ def update_institution(institution, name, address, email, passwd, types, shelter
             if status:
                 sql += "STATUS = {}, ".format(status_enum_reverse[status])
                 institution.status = status_enum_reverse[status]
+            if cpf_cnpj:
+                sql += "CPF_CNPJ = '{}', ".format(status_enum_reverse[status])
+                institution.cpf_cnpj = cpf_cnpj
             sql += "UPDATED_AT = '{}', ".format(datetime.now())
             sql = sql[:-2] + " "
             sql += "where ID_INSTITUTION = {}".format(institution.id)
