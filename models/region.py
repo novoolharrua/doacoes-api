@@ -51,8 +51,8 @@ def get_regions():
                 for row in result:
                     data.append({
                         'id_region': row[0],
-                        'name': row[1],
-                        'address': row[2],
+                        'name': row[2],
+                        'address': row[1],
                         'population': row[3]
                     })
                 return data
