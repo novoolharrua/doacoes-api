@@ -66,10 +66,10 @@ def post_institution():
     passwd = convert_md5(body['passwd'])
     types = body['types']
     shelter = int(body['shelter'])
-    email = body['cpf_cnpj']
+    cpf_cnpj = body['cpf_cnpj']
 
     institution = institution_model.create_institution(name=name, address=address, email=email, passwd=passwd,
-                                                       types=types, shelter=shelter, status=0)
+                                                       types=types, shelter=shelter, status=0, cpf_cnpj=cpf_cnpj)
     result = to_dict(institution)
 
     return jsonify(result), 200
