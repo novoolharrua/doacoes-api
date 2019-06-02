@@ -38,7 +38,7 @@ def to_dict(institution):
     if isinstance(institution.created_at, datetime.date):
         dict_format['created_at'] = institution.created_at.strftime('%Y-%m-%d %H:%M:%S')
     else:
-        dict_format['created_at'] = institution
+        dict_format['created_at'] = institution.created_at
     return dict_format
 
 @blueprint.route('/institution', methods=['POST', 'OPTIONS'])
@@ -70,6 +70,8 @@ def post_institution():
     result = to_dict(institution)
 
     return jsonify(result), 200
+
+
 
 @blueprint.route('/institution', methods=['GET', 'OPTIONS'])
 def get_institutions():

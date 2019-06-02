@@ -2,6 +2,9 @@
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from utils.name_utils import translate_name
+import os
+from base64 import b64decode
+import json
 
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
@@ -9,11 +12,13 @@ SCOPES = ['https://www.googleapis.com/auth/calendar']
 def get_service():
     from google.oauth2 import service_account
 
+    json_base64 = os.environ['BASE64_CREDENTIALS']
+    info = json.loads(b64decode(json_base64).decode('utf-8'))
     SCOPES = ['https://www.googleapis.com/auth/calendar']
     SERVICE_ACCOUNT_FILE = 'credencial_sam.json'
 
-    credentials = service_account.Credentials.from_service_account_file(
-        SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+    credentials = service_account.Credentials.from_service_account_info(
+        info, scopes=SCOPES)
     delegated_credentials = credentials.with_subject('lucas@necconstrucoes.com')
     service = build('calendar', 'v3', credentials=delegated_credentials)
     return service
