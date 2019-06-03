@@ -162,7 +162,7 @@ def update_institution(institution, name, address, email, passwd, types, shelter
                 institution.passwd = convert_md5(passwd)
             if types:
                 sql += "TYPES = '{}', ".format(types)
-                institution.types = type
+                institution.types = types
             if shelter:
                 sql += "SHELTER = {}, ".format(shelter)
                 institution.shelter = shelter
