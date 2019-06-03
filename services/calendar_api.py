@@ -39,8 +39,11 @@ def create_calendar(region_name, type):
     service = get_service()
     created_calendar = service.calendars().insert(body=calendar).execute()
     rule = {
-        'role': 'default'
+        "role": "reader",
+        "scope": {
+            "type": "default"
     }
+}
     service.acl().insert(calendarId=created_calendar['id'], body=rule).execute()
 
     return created_calendar['id']

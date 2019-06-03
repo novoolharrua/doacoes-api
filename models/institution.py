@@ -28,7 +28,7 @@ status_enum_reverse = {
 }
 
 class Institution():
-    def __init__(self, id, address, name, email, passwd, types, shelter, status, created_at, cpf_cnpj):
+    def __init__(self, id, address, name, email, passwd, types, shelter, status, created_at, cpf_cnpj, admin):
         self.id = id
         self.address = address
         self.name = name
@@ -39,6 +39,7 @@ class Institution():
         self.status = status
         self.created_at = created_at
         self.cpf_cnpj = cpf_cnpj
+        self.admin = admin
 
     def __repr__(self):
         return "<Institution(id='%s', name=%s)>" % (self.id, self.name)
@@ -57,7 +58,7 @@ def create_institution(address, name, email, passwd, types, shelter, status, cpf
             cursor.execute('commit')
             institution = Institution(id=created_id, address=address, name=name, email=email, passwd=passwd,
                                       types=types, shelter=shelter, status=status, cpf_cnpj=cpf_cnpj,
-                                      created_at=datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+                                      created_at=datetime.now().strftime('%Y-%m-%d %H:%M:%S'), admin=False)
             return institution
     finally:
         db.close()
@@ -83,7 +84,8 @@ def get_institutions():
                         'shelter': row[6],
                         'status': status_enum[str(row[7])],
                         'created_at': row[8].strftime('%Y-%m-%d %H:%M:%S'),
-                        'cpf_cnpj': row[9]
+                        'cpf_cnpj': row[9],
+                        'admin': row[10]
                     })
                 return data
             else:
@@ -103,7 +105,7 @@ def get_institution(iid):
             if result:
                 institution = Institution(id=result[0], address=result[1], name=result[2], email=result[3],
                                           passwd=result[4], types=result[5], shelter=result[6], status=result[7],
-                                          created_at=result[8], cpf_cnpj=result[9])
+                                          created_at=result[8], cpf_cnpj=result[9], admin=result[10])
                 return institution
             else:
                 return None
@@ -122,7 +124,7 @@ def get_institution_by_email(email):
             if result:
                 institution = Institution(id=result[0], address=result[1], name=result[2], email=result[3],
                                           passwd=result[4], types=result[5], shelter=result[6], status=result[7],
-                                          created_at=result[8], cpf_cnpj=[9])
+                                          created_at=result[8], cpf_cnpj=[9], admin=result[10])
                 return institution
             else:
                 return None

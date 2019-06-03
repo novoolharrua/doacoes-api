@@ -35,6 +35,7 @@ def to_dict(institution):
     dict_format['types'] = institution.types.split(',')
     dict_format['shelter'] = institution.shelter
     dict_format['cpf_cnpj'] = institution.cpf_cnpj
+    dict_format['admin'] = institution.admin
     dict_format['status'] = status_enum[str(institution.status)]
     if isinstance(institution.created_at, datetime.date):
         dict_format['created_at'] = institution.created_at.strftime('%Y-%m-%d %H:%M:%S')
