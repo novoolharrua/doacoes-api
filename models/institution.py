@@ -170,9 +170,8 @@ def update_institution(institution, name, address, email, passwd, types, shelter
                 sql += "STATUS = {}, ".format(status_enum_reverse[status])
                 institution.status = status_enum_reverse[status]
             if cpf_cnpj:
-                sql += "CPF_CNPJ = '{}', ".format(status_enum_reverse[status])
+                sql += "CPF_CNPJ = '{}', ".format(cpf_cnpj)
                 institution.cpf_cnpj = cpf_cnpj
-            sql += "UPDATED_AT = '{}', ".format(datetime.now())
             sql = sql[:-2] + " "
             sql += "where ID_INSTITUTION = {}".format(institution.id)
 
