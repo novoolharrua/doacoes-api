@@ -73,7 +73,8 @@ def post_event(region, calendar, institution, donation_type, start, stop):
             'dateTime': stop,
             'timeZone': 'America/Sao_Paulo',
         },
-        'attendees': []
+        'attendees': [],
+        'visibility': 'public'
     }
 
     event = service.events().insert(calendarId=calendar.gcloud_id, body=event).execute()
