@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request, abort, make_response, url_for
 from flask_cors import CORS
+import os
 
 from endpoints.status import blueprint as status_bp
 from endpoints.regions import blueprint as regions_bp
@@ -31,4 +32,4 @@ if __name__ == "__main__":
     app.register_blueprint(events_bp)
     app.register_blueprint(institutions_bp)
     app.register_blueprint(infos_bp)
-    app.run(debug=False, port=8080, host='0.0.0.0', use_reloader=False)
+    app.run(debug=False, port=os.environ.get("PORT", 5000), host='0.0.0.0', use_reloader=False)
