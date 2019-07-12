@@ -24,7 +24,7 @@ def to_dict(info):
     dict_format['description'] = info.description
     return dict_format
 
-@blueprint.route('/info', methods=['POST', 'OPTIONS'])
+@blueprint.route('/info', methods=['POST'])
 def post_information():
     """
     information post must follow:
