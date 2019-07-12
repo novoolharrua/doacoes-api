@@ -69,7 +69,7 @@ def get_info(info_id):
     return jsonify(result), 200
 
 
-@blueprint.route('/info/<info_id>', methods=['DELETE', 'OPTIONS'])
+@blueprint.route('/info/<info_id>', methods=['DELETE'])
 def delete_info(info_id):
     result = {}
     info = info_model.get_info(info_id)
