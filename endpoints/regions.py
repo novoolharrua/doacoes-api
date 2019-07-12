@@ -15,7 +15,7 @@ blueprint = Blueprint('regions', __name__)
 def endpoints_exception(code, msg):
     abort(make_response(jsonify(message=msg), code))
 
-@blueprint.route('/region', methods=['POST', 'OPTIONS'])
+@blueprint.route('/region', methods=['POST'])
 def post_region():
     """
     region post must follow:
@@ -81,7 +81,7 @@ def get_region(region_id):
         result['calendars'] = calendar.get_calendars_by_region(region_obj.id)
     return jsonify(result), 200
 
-@blueprint.route('/region/<region_id>', methods=['DELETE', 'OPTIONS'])
+@blueprint.route('/region/<region_id>', methods=['DELETE'])
 def delete_region(region_id):
     result = {}
     region_obj = region.get_region(region_id)

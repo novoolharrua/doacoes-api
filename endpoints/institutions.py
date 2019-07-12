@@ -43,7 +43,7 @@ def to_dict(institution):
         dict_format['created_at'] = institution.created_at
     return dict_format
 
-@blueprint.route('/institution', methods=['POST', 'OPTIONS'])
+@blueprint.route('/institution', methods=['POST'])
 def post_institution():
     """
     institutions post must follow:
@@ -92,7 +92,7 @@ def get_institution(institution_id):
 
     return jsonify(result), 200
 
-@blueprint.route('/institution/<institution_id>', methods=['DELETE', 'OPTIONS'])
+@blueprint.route('/institution/<institution_id>', methods=['DELETE'])
 def delete_institution(institution_id):
     result = {}
     institution = institution_model.get_institution(institution_id)
@@ -104,7 +104,7 @@ def delete_institution(institution_id):
         endpoints_exception(404, "REGION_NOT_FOUND")
 
 
-@blueprint.route('/institution/<institution_id>', methods=['PUT', 'OPTIONS'])
+@blueprint.route('/institution/<institution_id>', methods=['PUT'])
 def put_institution(institution_id):
     """
     institutions put must follow:

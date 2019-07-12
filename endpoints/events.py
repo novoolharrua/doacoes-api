@@ -52,7 +52,7 @@ def to_dict(event):
 
     return dict_format
 
-@blueprint.route('/event', methods=['POST', 'OPTIONS'])
+@blueprint.route('/event', methods=['POST'])
 def post_event():
     """
     date, period, type, gcloud_id, calendar, institution
@@ -118,7 +118,7 @@ def get_event(event_id):
 
 
 
-@blueprint.route('/event/<event_id>', methods=['DELETE', 'OPTIONS'])
+@blueprint.route('/event/<event_id>', methods=['DELETE'])
 def delete_event(event_id):
     result = {}
     event = event_model.get_event(event_id)
